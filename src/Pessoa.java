@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class Pessoa {
 
     private String nome;
@@ -38,33 +40,28 @@ public class Pessoa {
     public void creditarPremio(double valor) {
         this.premiacaoRecebida += valor;
     }
-
-    public boolean temGanhador(int[] sorteados) {
-        java.util.HashSet<Integer> setSorteados = new java.util.HashSet<>(); // Converte o array de números sorteados para um HashSet (busca mais rápida)
-        for (int n : sorteados) setSorteados.add(n); // Adiciona cada número sorteado ao HashSet.
-
-        for (int i = 0; i < quantidadeTeleSenas; i++) {
-            TeleSena ts = teleSenas[i]; // Obtém a TeleSena da pessoa.
-            boolean acertouConj1 = true; // Assume que o conjunto 1 foi completamente acertado.
-            boolean acertouConj2 = true; // Assume que o conjunto 2 foi completamente acertado.
-
-            // Percorre todos os 25 números do conjunto 1 e verifica se todos estão nos números sorteados.
+    
+    public boolean temGanhador(Set<Integer> sorteados) {
+        for (int i = 0; i < quantidadeTeleSenas; i++) { 
+            TeleSena ts = teleSenas[i]; 
+            
+            boolean ganhou1 = true;
             for (int n : ts.getPrimeiroConjunto()) {
-                if (!setSorteados.contains(n)) { 
-                    acertouConj1 = false; 
-                    break; 
+                if (!sorteados.contains(n)) {
+                    ganhou1 = false;
+                    break;
                 }
             }
-            if (acertouConj1) return true; // Todos os 25 números do conjunto 1 foram sorteados, então há um ganhador.
+            if (ganhou1) return true;
 
-            // Percorre todos os 25 números do conjunto 2 e verifica se todos estão nos números sorteados. 
+            boolean ganhou2 = true;
             for (int n : ts.getSegundoConjunto()) {
-                if (!setSorteados.contains(n)) { 
-                    acertouConj2 = false; 
-                    break; 
+                if (!sorteados.contains(n)) {
+                    ganhou2 = false;
+                    break;
                 }
             }
-            if (acertouConj2) return true; // Todos os 25 números do conjunto 2 foram sorteados, então há um ganhador.
+            if (ganhou2) return true;
         }
         return false;
     }
