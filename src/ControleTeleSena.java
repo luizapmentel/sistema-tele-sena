@@ -11,7 +11,9 @@ public class ControleTeleSena {
     private Random random = new Random();
 
     public void iniciarSistema() {
-        System.out.println("=== SORTEIO AUTOMÁTICO TELE SENA ===\n");
+        System.out.println("=================================================");
+        System.out.println("           SORTEIO AUTOMÁTICO TELE SENA");
+        System.out.println("=================================================");
         pausar(1500);
 
         realizarVendas();
@@ -21,7 +23,7 @@ public class ControleTeleSena {
     }
     
     public void realizarVendas() {
-        System.out.println("INICIANDO VENDA DAS TELE SENAS...\n");
+        System.out.println("\nINICIANDO VENDA DAS TELE SENAS...");
         pausar(1000);
 
         List<String> listaNomes = LeitorArquivo.lerNomes("nomes.txt"); // Carrega nomes do arquivo nomes.txt
@@ -37,8 +39,8 @@ public class ControleTeleSena {
                 qtd = 300 - totalTeleSenasVendidas;
             }
 
-            System.out.printf("%s está comprando %d Tele Sena(s)...\n", nomeAtual, qtd);
-            pausar(800);
+            System.out.printf("\n%s está comprando %d Tele Sena(s)...\n", nomeAtual, qtd);
+            pausar(600);
 
             for (int j = 0; j < qtd && totalTeleSenasVendidas < 300; j++) {
                 TeleSena ts = new TeleSena(); // Cria uma nova Tele Sena.
@@ -51,8 +53,8 @@ public class ControleTeleSena {
 
         double totalArrecadado = totalTeleSenasVendidas * TeleSena.VALOR_VENDA;
         System.out.printf("\nVENDAS ENCERRADAS!\n");
-        System.out.printf("Tele Senas vendidas: %d\n", totalTeleSenasVendidas);
-        System.out.printf("Valor total arrecadado: R$ %.2f\n\n", totalArrecadado);
+        System.out.printf("- Tele Senas vendidas: %d\n", totalTeleSenasVendidas);
+        System.out.printf("- Valor total arrecadado: R$ %.2f\n\n", totalArrecadado);
         pausar(2500);
     }
 
@@ -83,7 +85,7 @@ public class ControleTeleSena {
             contador++;
 
             System.out.printf("%dº número sorteado: %02d\n", contador, numero);
-            pausar(1500);
+            pausar(800);
 
             if (contador >= 25) { // Após os 25 primeiros números, verifica se há ganhadores.
                 for (Pessoa p : pessoas) { // Verifica cada pessoa.
@@ -109,37 +111,37 @@ public class ControleTeleSena {
             g.creditarPremio(premioIndividual);
         }
 
-        System.out.println("=================================================");
-        System.out.println("\n           PARABÉNS AOS GANHADORES!\n");
+        System.out.println("\n=================================================");
+        System.out.println("           PARABÉNS AOS GANHADORES!!!\n");
 
-        System.out.print("Números sorteados (" + sorteados.size() + "): ");
+        System.out.print("Números sorteados (" + sorteados.size() + "):\n");
 
         for (int i = 0; i < sorteados.size(); i++) {
             System.out.printf("%02d", sorteados.get(i));
             if (i < sorteados.size() - 1) { // Não adiciona vírgula após o último número.
                 System.out.print(", ");
             }
-            if ((i + 1) % 5 == 0){
-                System.out.println(); // Quebra de linha a cada 5 números.
+            if ((i + 1) % 10 == 0){
+                System.out.println(); // Quebra de linha a cada 10 números.
             }
         }
 
         System.out.println("\n");
 
-        System.out.println("Tele Senas vendidas: " + totalTeleSenasVendidas);
-        System.out.println("Total arrecadado: R$ " + String.format("%.2f", totalArrecadado));
-        System.out.println("Quantidade de ganhadores: " + ganhadores.size());
+        System.out.println("- Tele Senas vendidas: " + totalTeleSenasVendidas);
+        System.out.println("- Total arrecadado: R$ " + String.format("%.2f", totalArrecadado));
+        System.out.println("- Quantidade de ganhadores: " + ganhadores.size());
 
         System.out.println("\nGANHADORES:");
         for (Pessoa g : ganhadores) {
-            System.out.println("-> " + g.getNome() + " - Prêmio: R$ " + String.format("%.2f", premioIndividual));
+            System.out.println("--> " + g.getNome() + " - Prêmio: R$ " + String.format("%.2f", premioIndividual));
         }
 
-        System.out.println("\nPrêmio total distribuído (80%): R$ " + String.format("%.2f", premioTotal));
-        System.out.println("Lucro da casa (20%): R$ " + String.format("%.2f", lucroCasa));
+        System.out.println("\n- Prêmio total distribuído (80%): R$ " + String.format("%.2f", premioTotal));
+        System.out.println("- Lucro da casa (20%): R$ " + String.format("%.2f", lucroCasa));
 
         System.out.println("=================================================");
-        System.out.println("           SORTEIO FINALIZADO!");
+        System.out.println("               SORTEIO FINALIZADO!\n");
     }
 
     private void pausar(long millis) { 
